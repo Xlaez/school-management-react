@@ -1,0 +1,33 @@
+.App-header {
+  background: #131324;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px+2vmin);
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 5vh;
+}
+
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+.editor-class {
+  background: lightgray;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+.toolbar-class {
+  border: 1px solid #ccc;
+  background: #131324;
+}
+
+.preview {
+  padding: 3rem 1rem;
+  /* color: #282c34; */
+}

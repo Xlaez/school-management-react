@@ -1,7 +1,7 @@
 import React from "react";
 
-function SingleArticle({ article }) {
-  console.log(article);
+function SingleArticle({ singleArticles }) {
+  console.log(singleArticles);
   return <div>SingleArticle</div>;
 }
 

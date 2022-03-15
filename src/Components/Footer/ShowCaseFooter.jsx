@@ -6,8 +6,8 @@ function ShowCaseFooter() {
     <Footer>
       <footer>
         <div id="container-footer">
-          <div class="nav-bar">
-            <div class="first-nav">
+          <div className="nav-bar">
+            <div className="first-nav">
               <li>TOF MANAGEMENT</li>
             </div>
             <div className="second-nav">
