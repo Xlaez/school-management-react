@@ -10,9 +10,13 @@ import styled from "styled-components";
 import image from "../../../public/assets/pics.jpg";
 import { blogRoute } from "../../utils/api";
 import ShowCaseFooter from "../../Components/Footer/ShowCaseFooter";
+import SingleArticle from "../../Components/Blog/SingleArticle/SingleArticle";
 export default function ShowCase() {
   const Navigate = useNavigate();
   const [articles, setArticles] = useState([]);
+  const [singleArticles, setSingleArticles] = useState([]);
+  let isPage = false;
+  const [id, setId] = useState(undefined);
   useEffect(() => {
     axios
       .get(blogRoute + "?page=2")
@@ -28,105 +32,151 @@ export default function ShowCase() {
         console.log(err);
       });
   }, []);
+  const handleNav = (e) => {
+    setId(e.target.value);
+  };
+  const handleSemiSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .get(`${blogRoute}/${id}`)
+      .then((res) => {
+        if (res.status === 400) {
+          console.log(res.status);
+          isPage = false;
+        }
+        if (res.status === 200) {
+          setSingleArticles(res.data.article);
+          isPage = true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        isPage = false;
+      });
+    // <SingleArticle singleArticles={singleArticles} />;
+    Navigate("/single");
+  };
+  const single = () => {
+    return (
+      <div>
+        <p>Hey</p>
+      </div>
+    );
+  };
   return (
     <div>
       <BlogNavbar />
       <Head />
-      <Wrapper>
-        <section>
-          <div className="blog-articles">
-            {articles.map((article) => {
-              return (
-                <div className="blog-container" key={article._id}>
-                  <div className="blog-img-sect">
-                    <img src={image} alt="" />
-                  </div>
-                  <div className="blog-txt-sect">
-                    <h3>{article.title}</h3>
-                    <p>{article.description}</p>
-                    <div className="view">
-                      <button className="">View</button>
-                    </div>
-                    <div className="box">
-                      <div className="avater">
-                        <Avatar src={""}></Avatar>
-                        <p>Thomas Macdonald</p>
-                      </div>
-                      <div className="date">
-                        <small>{new Date().toDateString()}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-        <div className="head">
-          <h1>MOST LOVED ARTICLES</h1>
+      {isPage ? (
+        <div>
+          <p>Hey</p>
         </div>
-        <section>
-          <div className="blog-articles">
-            {articles.map((article) => {
-              return (
-                <div className="blog-container" key={article._id}>
-                  <div className="blog-img-sect">
-                    <img src={image} alt="" />
-                  </div>
-                  <div className="blog-txt-sect">
-                    <h3>{article.title}</h3>
-                    <p>{article.description}</p>
-                    <div className="view">
-                      <button className="">View</button>
+      ) : (
+        <Wrapper>
+          <section>
+            <div className="blog-articles">
+              {articles.map((article) => {
+                return (
+                  <div className="blog-container" key={article._id}>
+                    <div className="blog-img-sect">
+                      <img src={image} alt="" />
                     </div>
-                    <div className="box">
-                      <div className="avater">
-                        <Avatar src={""}></Avatar>
-                        <p>Thomas Macdonald</p>
+                    <div className="blog-txt-sect">
+                      <h3>{article.title}</h3>
+                      <p>{article.description}</p>
+                      <div className="view">
+                        <form onSubmit={(e) => handleSemiSubmit(e)}>
+                          <button
+                            className=""
+                            value={article._id}
+                            onClick={(e) => handleNav(e)}
+                            type="submit"
+                          >
+                            View
+                          </button>
+                        </form>
                       </div>
-                      <div className="date">
-                        <small>{new Date().toDateString()}</small>
+                      <div className="box">
+                        <div className="avater">
+                          <Avatar src={""}></Avatar>
+                          <p>Thomas Macdonald</p>
+                        </div>
+                        <div className="date">
+                          <small>{new Date().toDateString()}</small>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          </section>
+          <div className="head">
+            <h1>MOST LOVED ARTICLES</h1>
           </div>
-        </section>
-        <div className="head">
-          <h1>LATEST NEWS FROM THE ADMINS</h1>
-        </div>
-        <section>
-          <div className="blog-articles">
-            {articles.map((article) => {
-              return (
-                <div className="blog-container" key={article._id}>
-                  <div className="blog-img-sect">
-                    <img src={image} alt="" />
-                  </div>
-                  <div className="blog-txt-sect">
-                    <h3>{article.title}</h3>
-                    <p>{article.description}</p>
-                    <div className="view">
-                      <button className="">View</button>
+          <section>
+            <div className="blog-articles">
+              {articles.map((article) => {
+                return (
+                  <div className="blog-container" key={article._id}>
+                    <div className="blog-img-sect">
+                      <img src={image} alt="" />
                     </div>
-                    <div className="box">
-                      <div className="avater">
-                        <Avatar src={""}></Avatar>
-                        <p>Thomas Macdonald</p>
+                    <div className="blog-txt-sect">
+                      <h3>{article.title}</h3>
+                      <p>{article.description}</p>
+                      <div className="view">
+                        <button className="">View</button>
                       </div>
-                      <div className="date">
-                        <small>{new Date().toDateString()}</small>
+                      <div className="box">
+                        <div className="avater">
+                          <Avatar src={""}></Avatar>
+                          <p>Thomas Macdonald</p>
+                        </div>
+                        <div className="date">
+                          <small>{new Date().toDateString()}</small>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          </section>
+          <div className="head">
+            <h1>LATEST NEWS FROM THE ADMINS</h1>
           </div>
-        </section>
-      </Wrapper>
+          <section>
+            <div className="blog-articles">
+              {articles.map((article) => {
+                return (
+                  <div className="blog-container" key={article._id}>
+                    <div className="blog-img-sect">
+                      <img src={image} alt="" />
+                    </div>
+                    <div className="blog-txt-sect">
+                      <h3>{article.title}</h3>
+                      <p>{article.description}</p>
+                      <div className="view">
+                        <button className="">View</button>
+                      </div>
+                      <div className="box">
+                        <div className="avater">
+                          <Avatar src={""}></Avatar>
+                          <p>Thomas Macdonald</p>
+                        </div>
+                        <div className="date">
+                          <small>{new Date().toDateString()}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        </Wrapper>
+      )}
       <ShowCaseFooter />
     </div>
   );
