@@ -1,48 +1,46 @@
-/* eslint-disable*/
-import axios from "axios";
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
-import { registerRoute, signinRoute } from "../utils/api";
-import Logo from "../../public/assets/facebook.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Logo from "../../../../public/assets/facebook.png";
+import { loginChatRoute, signinChatRoute } from "../../../utils/api";
 
-function Signin() {
+function Register() {
   const Navigate = useNavigate();
-
   const [inputs, setInputs] = useState({
+    username: "",
     email: "",
     password: "",
   });
 
-  const toastOptions = {
+  const toastDec = {
     position: "bottom-right",
     draggable: true,
     pauseOnHover: true,
-    autoClose: 8000,
+    autoClose: 800,
     theme: "dark",
   };
 
   useEffect(() => {
-    if (localStorage.getItem("x-access-token")) {
-      Navigate("/student");
+    if (localStorage.getItem("chat-user")) {
+      Navigate("/messaging");
     }
   }, []);
 
-  const handleChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    setInputs({ ...inputs, [event.target.name]: event.target.value });
   };
 
   const handleValidation = () => {
-    const { password, email } = inputs;
-    if (password <= 7) {
-      toast.error(
-        "Password cannot contain less than 7 characters",
-        toastOptions
-      );
+    const { password, username } = inputs;
+    if (password === "") {
+      toast.error("One of the provided fields is incorrect", toastDec);
       return false;
-    } else if (email <= 3) {
-      toast.error("Check the email provided again.", toastOptions);
+    } else if (username === "") {
+      toast.error("One of the provided fields is incorrect.", toastDec);
       return false;
     } else {
       return true;
@@ -51,39 +49,41 @@ function Signin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      const { email, password } = inputs;
-      const data = await axios.post(signinRoute, {
+      const { username, email, password } = inputs;
+      const { data } = await axios.post(signinChatRoute, {
+        username,
         email,
         password,
       });
-
-      if (data.request.status === 400) {
-        toast.error(data.message, toastOptions);
+      if (data.status === false) {
+        toast.error(data.message, toastDec);
       }
-      if (data.request.status === 201 || data.request.status === 200) {
-        const message = data.data.message;
-        const token = data.data.token;
-        const userId = data.data.userId;
-        localStorage.setItem("app-user", userId);
-        localStorage.setItem("x-access-token", token);
-        toast.info(message, toastOptions);
+      if (data.status === true) {
+        localStorage.setItem("chat-user", JSON.stringify(data.data));
       }
-      Navigate("/");
+      Navigate("/messaging");
     }
   };
 
   return (
-    <Container>
+    <FormContainer>
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="brand">
           <img src={Logo} alt="Logo" />
-          <h1>TOF MANAGER</h1>
+          <h1>TOF messenger</h1>
         </div>
+        <input
+          type="text"
+          name="username"
+          id=""
+          placeholder="Username"
+          onChange={(e) => handleChange(e)}
+        />
         <input
           type="text"
           name="email"
           id=""
-          placeholder="email"
+          placeholder="Email"
           onChange={(e) => handleChange(e)}
         />
         <input
@@ -93,21 +93,19 @@ function Signin() {
           placeholder="Password"
           onChange={(e) => handleChange(e)}
         />
-        <button type="submit">SignIn</button>
+        <button type="submit">Create account</button>
         <span>
-          Don't have an account ? <Link to="/register">Register</Link>
+          Already have an account ? <Link to="/chatl">Login</Link>
           {""}
         </span>
       </form>
       <ToastContainer />
-    </Container>
+    </FormContainer>
   );
 }
 
-export default Signin;
-
-const Container = styled.div`
-height: 100vh;
+const FormContainer = styled.div`
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -175,4 +173,7 @@ height: 100vh;
           font-weight:bolder;
         }
       }
+
 `;
+
+export default Register;

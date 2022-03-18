@@ -8,25 +8,7 @@ function Header() {
     <HeaderApp>
       <div className="collection">
         <div className="collection-items">
-          <div className="collections-portal">
-            <ul>
-              <li>
-                <Link to="/">
-                  <div className="text">Blog</div>
-                </Link>
-              </li>
-              <li>
-                <Link to="/">
-                  <div className="text">Notice Portal</div>
-                </Link>
-              </li>
-              <li>
-                <Link to="/">
-                  <div className="text">Assignment Portal</div>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <div className="collections-portal"></div>
           <div className="logout">
             <ul>
               <li>
@@ -48,7 +30,7 @@ function Header() {
             </ul>
           </div>
           <div className="date">
-            <small>| {new Date().toDateString()}</small>
+            <small>{new Date().toDateString()}</small>
           </div>
         </div>
       </div>
@@ -121,7 +103,7 @@ const HeaderApp = styled.div`
             justify-content: space-around;
             flex-direction: row;
             align-items: center;
-            color: purple;
+            color: #f4f4f4;
             text-decoration: none;
             transition: all 1s ease-in;
 

@@ -15,7 +15,7 @@ function BlogNavbar() {
           <div className="second-nav">
             <ul>
               <li>
-                <Link to="/">Dashboard</Link>
+                <Link to="/student">Dashboard</Link>
               </li>
               <li>
                 <Link to="/">Notice</Link>
@@ -24,7 +24,7 @@ function BlogNavbar() {
                 <Link to="/">Website</Link>
               </li>
               <li>
-                <Link to="/">Logout</Link>
+                <Link to="/logout">Logout</Link>
               </li>
             </ul>
           </div>

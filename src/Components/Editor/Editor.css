@@ -29,5 +29,6 @@
 
 .preview {
   padding: 3rem 1rem;
+  overflow-wrap: break-word;
   /* color: #282c34; */
 }

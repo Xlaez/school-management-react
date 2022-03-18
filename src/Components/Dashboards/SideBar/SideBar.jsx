@@ -10,48 +10,68 @@ import {
   BsFile,
   BsFillGearFill,
   BsNewspaper,
+  BsPen,
 } from "react-icons/bs";
-function SideBar() {
+function SideBar({
+  studentData,
+  handleProfileDisplay,
+  handleDraftDisplay,
+  handleArticleDisplay,
+}) {
   const handleAnimation = () => {};
   return (
     <Wrapper>
       <div className="content-header">
         <Avatar />
-        <h3>Dennis Johnson</h3>
+        <h3>{studentData.fullname}</h3>
       </div>
       <div className="content-list">
         <ul>
           <div className="list">
             <li
               onClick={() => {
-                handleAnimation();
+                handleProfileDisplay();
               }}
             >
               <div className="icon">
                 <BsBook />
               </div>
-              <Link to="/">Profile</Link>
+              <Link to="#">Profile</Link>
             </li>
-            <li
-              onClick={() => {
-                handleAnimation();
-              }}
-            >
-              <div className="icon">
-                <BsFile />
-              </div>
+            {studentData.role === "student" ? (
+              <li
+                onClick={() => {
+                  handleAnimation();
+                }}
+              >
+                <div className="icon">
+                  <BsFile />
+                </div>
 
-              <Link to="/">Subjects</Link>
-            </li>
+                <Link to="/">Subjects</Link>
+              </li>
+            ) : (
+              <li
+                onClick={() => {
+                  handleAnimation();
+                }}
+              >
+                <div className="icon">
+                  <BsFile />
+                </div>
+
+                <Link to="/">Time table</Link>
+              </li>
+            )}
             <li
               onClick={() => {
-                handleAnimation();
+                handleDraftDisplay();
               }}
             >
               <div className="icon">
                 <BsChatText />
               </div>
-              <Link to="/">Drafts</Link>
+              <Link to="#">Drafts</Link>
             </li>
           </div>
 
@@ -74,7 +94,7 @@ function SideBar() {
               <div className="icon">
                 <BiChat />
               </div>
-              <Link to="/">Messenger</Link>
+              <Link to="/messaging">Messenger</Link>
             </li>
             <li
               onClick={() => {
@@ -85,19 +105,19 @@ function SideBar() {
                 <BsNewspaper />
               </div>
 
-              <Link to="/">Work Space</Link>
+              <Link to="/workspace">Work Space</Link>
             </li>
           </div>
           <div className="list">
             <li
               onClick={() => {
-                handleAnimation();
+                handleArticleDisplay();
               }}
             >
               <div className="icon">
-                <BsFillGearFill />
+                <BsPen />
               </div>
-              <Link to="/">Settings</Link>
+              <Link to="#">Create Article</Link>
             </li>
             <li
               onClick={() => {
@@ -107,7 +127,7 @@ function SideBar() {
               <div className="icon">
                 <BiChat />
               </div>
-              <Link to="/">Messenger</Link>
+              <Link to="/">Assignments</Link>
             </li>
           </div>
         </ul>
