@@ -1,10 +1,14 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
 function HomePage() {
   const Navigate = useNavigate();
+  // useEffect(() => {
+  //   if (localStorage.getItem("app-user"));
+  //   Navigate("/student");
+  // });
   return (
     <Container>
       <div className="welcome-text">

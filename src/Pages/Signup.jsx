@@ -23,11 +23,11 @@ function Signup() {
     theme: "dark",
   };
 
-  //   useEffect(() => {
-  //     if (localStorage.getItem("app-user")) {
-  //       Navigate("/");
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (localStorage.getItem("x-access-token")) {
+      Navigate("/student");
+    }
+  }, []);
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -66,7 +66,10 @@ function Signup() {
         var message = data.data.message;
         var token = data.data.token;
         var userId = data.data.userId;
-        localStorage.setItem("app-user", JSON.stringify(data.data));
+        toast.info(message, toastOptions);
+        localStorage.setItem("app-user", userId);
+        localStorage.setItem("x-access-token", token);
+        // localStorage.setItem("x-access-expiry",  );
       }
       Navigate("/");
     }

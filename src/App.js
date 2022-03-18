@@ -10,6 +10,10 @@ import ShowCase from './Pages/Blog/ShowCase.jsx'
 import Editor from './Components/Editor/Editor';
 import SingleArticle from './Components/Blog/SingleArticle/SingleArticle'
 import StudentDashboard from './Components/Dashboards/Student/Student';
+import Messenger from './Components/Messenger/Messenger'
+import ChatLogin from './Components/Auth/Chat/Login'
+import ChatSignin from './Components/Auth/Chat/Signin'
+import Workspace from './Components/Workspace/Tools/Tools';
 
 function App() {
   return <BrowserRouter>
@@ -24,6 +28,10 @@ function App() {
       <Route path="/edit" element={<Editor />} />
       <Route path='/single' element={<SingleArticle />} />
       <Route path='/student' element={<StudentDashboard />} />
+      <Route path='/messaging' element={<Messenger />} />
+      <Route path='/chatl' element={< ChatLogin />} />
+      <Route path='/chats' element={< ChatSignin />} />
+      <Route path='/workspace' element={<Workspace />} />
 
     </Routes>
   </BrowserRouter>
