@@ -26,7 +26,7 @@ const EditorApp = () => {
   };
   return (
     <div className="App">
-      <header className="App-header">Article Content</header>
+      <header className="App-header">Note Editor</header>
       <Editor
         editorState={editorState}
         onEditorStateChange={handleEditorChange}

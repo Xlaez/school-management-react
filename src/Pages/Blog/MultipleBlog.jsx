@@ -6,7 +6,6 @@ function MultipleBlog({ articles, handleSemiSubmit, setId, id }) {
   const handleNav = (e) => {
     setId(e.target.value);
   };
-  //   console.log(id);
 
   return (
     <Wrapper>
@@ -16,7 +15,7 @@ function MultipleBlog({ articles, handleSemiSubmit, setId, id }) {
             return (
               <div className="blog-container" key={article._id}>
                 <div className="blog-img-sect">
-                  <img src={image} alt="" />
+                  <img src={`http://localhost:8081/${article.image}`} alt="" />
                 </div>
                 <div className="blog-txt-sect">
                   <h3>{article.title}</h3>

@@ -66,8 +66,6 @@ export default function ShowCase() {
         }
         if (res.status === 200) {
           isPage = true;
-          // console.log(isPage);
-          console.log(res.data.article);
           setSingleArticles(res.data.article);
         }
       })
@@ -93,7 +91,11 @@ export default function ShowCase() {
           />
         </div>
       ) : (
-        <SingleArticle singleArticles={singleArticles} userId={userId} />
+        <SingleArticle
+          singleArticles={singleArticles}
+          userId={userId}
+          id={id}
+        />
       )}
       <ShowCaseFooter />
     </div>

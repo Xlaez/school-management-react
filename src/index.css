@@ -50,3 +50,18 @@ body {
   border-radius: 5px;
   border: 1px solid #00000076;
 } */
+.rotate {
+  width: 80px;
+  height: 80px;
+  animation: rotation infinite 3s linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
