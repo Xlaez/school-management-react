@@ -4,8 +4,6 @@ import HomePage from './Pages/HomePage'
 import Signup from './Pages/Signup'
 import Signin from './Pages/Signin'
 import Blog from './Pages/Blog'
-import Article from './Pages/Article'
-import Test from './Pages/Test'
 import ShowCase from './Pages/Blog/ShowCase.jsx'
 import Editor from './Components/Editor/Editor';
 import SingleArticle from './Components/Blog/SingleArticle/SingleArticle'
@@ -14,6 +12,8 @@ import Messenger from './Components/Messenger/Messenger'
 import ChatLogin from './Components/Auth/Chat/Login'
 import ChatSignin from './Components/Auth/Chat/Signin'
 import Workspace from './Components/Workspace/Tools/Tools';
+import EditArticles from './Components/Blog/EditArticles'
+import Validate from './Components/Auth/App/Validate'
 
 function App() {
   return <BrowserRouter>
@@ -22,8 +22,6 @@ function App() {
       <Route path='/register' element={<Signup />} />
       <Route path='/login' element={<Signin />} />
       <Route path='/articles' element={<Blog />} />
-      <Route path='/article' element={<Article />} />
-      <Route path='/test' element={<Test />} />
       <Route path='/showcase' element={<ShowCase />} />
       <Route path="/edit" element={<Editor />} />
       <Route path='/single' element={<SingleArticle />} />
@@ -32,6 +30,8 @@ function App() {
       <Route path='/chatl' element={< ChatLogin />} />
       <Route path='/chats' element={< ChatSignin />} />
       <Route path='/workspace' element={<Workspace />} />
+      <Route path='/editarticle' element={<EditArticles />} />
+      <Route path='/validate' element={<Validate />} />
 
     </Routes>
   </BrowserRouter>

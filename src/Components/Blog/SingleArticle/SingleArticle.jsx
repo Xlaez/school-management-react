@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { blogRoute } from "../../../utils/api";
@@ -7,7 +7,7 @@ function SingleArticle({ singleArticles, userId, id }) {
   const AccessToken = localStorage.getItem("x-access-token");
   const userids = localStorage.getItem("app-user");
   const images = `http://localhost:8081/${singleArticles.image}`;
-
+  const [isEdit, setIsEdit] = useState(undefined);
   const handleDelteArticle = (e) => {
     e.preventDefault();
     fetch(`${blogRoute}/${id}`, {
@@ -18,7 +18,43 @@ function SingleArticle({ singleArticles, userId, id }) {
       },
     })
       .then((res) => {
-        Navigate("/showcase");
+        Navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleEditArticle = (e) => {
+    e.preventDefault();
+    setIsEdit("editing");
+  };
+  const handleSubmitEdit = (e) => {
+    const formData = new FormData();
+    var image = document.querySelector('input[type="file"]').files[0];
+    var title = document.getElementById("title").value;
+    var descr = document.getElementById("descr").value;
+    var content = document.getElementById("content").value;
+
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("description", descr);
+    formData.append("content", content);
+    e.preventDefault();
+    fetch(`${blogRoute}/${id}`, {
+      method: "PUT",
+      body: formData,
+      headers: {
+        Authorization: AccessToken,
+        userAccess: userids,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          console.log("An error occured");
+        }
+        if (res.ok) {
+          Navigate("/showcase");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -26,48 +62,92 @@ function SingleArticle({ singleArticles, userId, id }) {
   };
   return (
     <Wrapper>
-      <div className="single-blog-post">
-        <div className="header">
-          <h1>{singleArticles.title}</h1>
+      {isEdit === "editing" ? (
+        <div className="edit-article">
+          <form
+            encType="multipart/form-data"
+            onSubmit={(e) => handleSubmitEdit(e)}
+          >
+            <div className="header">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                name=""
+                id="title"
+                defaultValue={singleArticles.title}
+              />
+            </div>
+            <div className="image">
+              <input type="file" name="" id="image" />
+            </div>
+            <div className="description">
+              <input
+                type="text"
+                id="descr"
+                defaultValue={singleArticles.description}
+              />
+            </div>
+            <div className="content">
+              <input
+                type="text"
+                id="content"
+                defaultValue={singleArticles.content}
+              />
+            </div>
+            <button type="submit">Make changes</button>
+          </form>
         </div>
-        <div className="img">
-          <img src={images} alt="" />
-        </div>
-        <div className="content">
-          <h3>{singleArticles.description}</h3>
-          <p>{singleArticles.content}</p>
-        </div>
-        <div className="spec">
-          <div>
-            <h5>
-              Published by: <small>{singleArticles.author}</small>
-            </h5>
+      ) : (
+        <div className="single-blog-post">
+          <div className="header">
+            <h1>{singleArticles.title}</h1>
           </div>
-          <div>
-            <h5>
-              Date: <small>{singleArticles.updatedAt}</small>
-            </h5>
+          <div className="img">
+            <img src={images} alt="" />
           </div>
-        </div>
-        {singleArticles.userId === userId ? (
-          <div className="links">
+          <div className="content">
+            <h3>{singleArticles.description}</h3>
+            <p>{singleArticles.content}</p>
+          </div>
+          <div className="spec">
             <div>
-              <form onSubmit={(e) => handleDelteArticle(e)}>
-                <button type="submit" value={singleArticles._id}>
-                  Delete
-                </button>
-              </form>
+              <h5>
+                Published by: <small>{singleArticles.author}</small>
+              </h5>
             </div>
             <div>
-              <form>
-                <button type="submit">Edit</button>
-              </form>
+              <h5>
+                Date:{" "}
+                <small>
+                  {new Date(singleArticles.updatedAt).toLocaleDateString(
+                    "en-US"
+                  )}
+                </small>
+              </h5>
             </div>
           </div>
-        ) : (
-          ""
-        )}
-      </div>
+          {singleArticles.userId === userId ? (
+            <div className="links">
+              <div>
+                <form onSubmit={(e) => handleDelteArticle(e)}>
+                  <button type="submit" value={singleArticles._id}>
+                    Delete
+                  </button>
+                </form>
+              </div>
+              <div>
+                <form onSubmit={(e) => handleEditArticle(e)}>
+                  <button type="submit" value={singleArticles._id}>
+                    Edit
+                  </button>
+                </form>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
     </Wrapper>
   );
 }

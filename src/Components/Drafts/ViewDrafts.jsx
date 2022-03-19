@@ -51,10 +51,16 @@ function ViewDrafts({ text, studentData }) {
 }
 
 const Body = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   .no-draft-entry {
-    width: 700px;
+    width: 100%;
+    padding-top: 4rem;
+    height: 78vh;
+
     text-align: center;
-    margin: 4rem auto;
+    background: #fff;
     h1 {
       padding: 2rem;
       font-size: 1.4rem;
@@ -64,18 +70,19 @@ const Body = styled.div`
     button {
       padding: 20px 40px;
       color: #fff;
-      background: #131324;
-      border: 1px solid #131324;
+      background: green;
+      border: 1px solid green;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
     }
   }
   .show-drafts {
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
     padding: 1rem 3rem;
-    background: #131324;
-    color: #fff;
+    background: #fff;
+    height: 78vh;
+    color: #131324;
     h2 {
       padding: 1rem;
       text-align: center;
@@ -84,7 +91,7 @@ const Body = styled.div`
     .p {
       line-height: 1.6;
       text-align: center;
-      color: #fff;
+      color: #131324;
       font-size: 1.2rem;
       padding-bottom: 2rem;
     }
@@ -94,7 +101,7 @@ const Body = styled.div`
       .draft {
         display: flex;
         flex-direction: column;
-        border: 1px solid #fff;
+        border: 1px solid #131324;
         padding: 1rem;
         margin: 0 0.3rem;
         text-align: center;
@@ -104,14 +111,14 @@ const Body = styled.div`
         }
         p {
           line-height: 1.5;
-          color: #ccc;
+          color: #131324;
         }
         form {
           button {
             margin-top: 0.4rem;
             color: #fff;
-            border: 1px solid purple;
-            background: purple;
+            border: 1px solid green;
+            background: green;
             padding: 10px 15px;
             cursor: pointer;
           }

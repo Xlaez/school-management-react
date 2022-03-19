@@ -105,24 +105,22 @@ function Drafts({ studentData }) {
               </form>
             </div>
           ) : (
-            <div className="no-drafts">
-              <div>
-                <h3>Save your important Document {studentData.fullname}</h3>
-                <p>Your drafts are encrypted for security reasons</p>
-              </div>
-              <div className="btn">
-                <button onClick={() => toggleChangeDraft()}>
-                  <div className="small">Add</div>
-                  <div className="icon">
-                    <BiServer />
-                  </div>
-                </button>
-                <button onClick={() => toggleViewDraft()}>
-                  <div className="small">View </div>
-                  <div className="icon">
-                    <BiServer />
-                  </div>
-                </button>
+            <div className="draft-body">
+              <div className="no-drafts">
+                <div>
+                  <h3>Save your important Document {studentData.fullname}</h3>
+                  <p>
+                    Adding drafts ensures quick access to essential information
+                  </p>
+                </div>
+                <div className="btn">
+                  <button onClick={() => toggleChangeDraft()}>
+                    <div className="small">New draft</div>
+                  </button>
+                  <button className="sec-btn" onClick={() => toggleViewDraft()}>
+                    <div className="small">View draft</div>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -133,22 +131,34 @@ function Drafts({ studentData }) {
 }
 
 const DraftWrapper = styled.div`
-  padding: 1rem 2rem;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: #131313;
+  border-top: 1px solid #fff;
   font-family: "poppins", sans-serif;
+  .draft-body {
+    background: #fff;
+  }
   .no-drafts {
-    width: 700px;
     margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #fff;
     padding: 5rem 0.2rem;
+    height: 78vh;
+    overflow-y: auto;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     h3 {
       font-size: 1.5rem;
+      text-transform: capitalize;
       padding-bottom: 2rem;
     }
     p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       padding-bottom: 4rem;
     }
     .btn {
@@ -159,8 +169,8 @@ const DraftWrapper = styled.div`
     button {
       padding: 20px 40px;
       color: #fff;
-      background: #131324;
-      border: 1px solid #131324;
+      background: rgb(228, 52, 52);
+      border: 1px solid rgb(228, 52, 52);
       margin: 0 1rem;
       border-radius: 5px;
       display: flex;
@@ -179,13 +189,19 @@ const DraftWrapper = styled.div`
         color: purple;
       }
     }
+    .sec-btn {
+      background: rgb(10, 10, 141);
+      border: rgb(10, 10, 141);
+    }
   }
   .drafts {
     width: 900px;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin: 2rem auto;
     padding: 1rem;
-    background: #131324;
-    color: #fff;
+    background: #fff;
+    color: #131324;
     h3 {
       text-align: center;
       padding: 1rem;
@@ -197,8 +213,8 @@ const DraftWrapper = styled.div`
         width: 100%;
         height: 40px;
         background: transparent;
-        border: 1px solid #ccc;
-        color: #ccc;
+        border: 1px solid #333;
+        color: #222;
         border-radius: 3px;
         padding: 1px 5px;
         &:focus {
@@ -208,8 +224,8 @@ const DraftWrapper = styled.div`
       textarea {
         width: 100%;
         border-radius: 3px;
-        border: 1px solid #ccc;
-        color: #ccc;
+        border: 1px solid #333;
+        color: #222;
         background: transparent;
         padding: 7px 5px;
         &:focus {
@@ -226,8 +242,8 @@ const DraftWrapper = styled.div`
         width: 100%;
         padding: 20px 40px;
         color: #fff;
-        background: purple;
-        border: 1px solid #131324;
+        background: green;
+        border: 1px solid green;
         border-radius: 2px;
         &:hover {
           opacity: 0.8;

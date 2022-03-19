@@ -9,7 +9,7 @@ import Logo from "../../public/assets/facebook.png";
 
 function Signin() {
   const Navigate = useNavigate();
-
+  var [message, setMessage] = useState(undefined);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -52,23 +52,34 @@ function Signin() {
     event.preventDefault();
     if (handleValidation()) {
       const { email, password } = inputs;
-      const data = await axios.post(signinRoute, {
-        email,
-        password,
-      });
+      let data;
+      try {
+        data = await axios.post(signinRoute, {
+          email,
+          password,
+        });
 
-      if (data.request.status === 400) {
-        toast.error(data.message, toastOptions);
+        if (data.request.status === 400) {
+          alert("Either password or email is incorrect");
+        }
+        if (data.request.status === 201 || data.request.status === 200) {
+          const message = data.data.message;
+          const token = data.data.token;
+          const userId = data.data.userId;
+          localStorage.setItem("app-user", userId);
+          localStorage.setItem("x-access-token", token);
+          toast.info(message, toastOptions);
+        }
+        Navigate("/student");
+      } catch (err) {
+        function alert() {
+          setMessage("true");
+          setTimeout(() => {
+            setMessage(undefined);
+          }, 2000);
+        }
+        alert();
       }
-      if (data.request.status === 201 || data.request.status === 200) {
-        const message = data.data.message;
-        const token = data.data.token;
-        const userId = data.data.userId;
-        localStorage.setItem("app-user", userId);
-        localStorage.setItem("x-access-token", token);
-        toast.info(message, toastOptions);
-      }
-      Navigate("/");
     }
   };
 
@@ -79,6 +90,11 @@ function Signin() {
           <img src={Logo} alt="Logo" />
           <h1>TOF MANAGER</h1>
         </div>
+        {message !== undefined ? (
+          <small className="alert">Either password or email is incorrect</small>
+        ) : (
+          ""
+        )}
         <input
           type="text"
           name="email"
@@ -175,4 +191,12 @@ height: 100vh;
           font-weight:bolder;
         }
       }
+  .alert{
+    color:#fff;
+    background:red;
+    border:1px solid rgb(238, 97, 97);
+    border-radius:1px;
+    padding:10px;
+    text-align:center;
+  }
 `;

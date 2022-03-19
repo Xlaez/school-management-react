@@ -30,7 +30,7 @@ function CreateForm() {
         if (!res.ok) {
           console.log("An error occured");
         }
-        if (res.ok) {
+        if (res.status === 201 || res.status === 200) {
           Navigate("/showcase");
         }
       })
@@ -82,16 +82,19 @@ function CreateForm() {
 }
 
 const FormBody = styled.div`
+  border-top: 1px solid #ccc;
   .form-body {
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
     margin: 1rem 3rem;
+    /* background:#fff; */
+    overflow-y: auto;
     .form-element {
       /* padding: 1rem 0; */
       margin-bottom: 2px;
       #title,
-      #description {
+      #descr {
         width: 100%;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -116,6 +119,7 @@ const FormBody = styled.div`
         padding: 1rem 10px;
         overflow: auto;
         max-height: 320px;
+        color: #fff;
         &:focus {
           outline: none;
         }
@@ -133,7 +137,7 @@ const FormBody = styled.div`
       }
       button {
         padding: 15px 30px;
-        background: #131324;
+        background: red;
         color: #fff;
         border: 1px solid #131324;
         border-radius: 5px;
