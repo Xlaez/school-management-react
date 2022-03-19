@@ -12,7 +12,7 @@ function HomePage() {
   return (
     <Container>
       <div className="welcome-text">
-        <h1>Wecome to TOF Schools Management system</h1>
+        <h1>Welcome to TOF Schools Management system</h1>
         <p>Easy Management and accessibilty of school data </p>
         <div className="btn">
           <button>

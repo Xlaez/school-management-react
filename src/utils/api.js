@@ -10,5 +10,5 @@ export const loginChatRoute = `${apiHost}/chat/signin`
 export const signinChatRoute = `${apiHost}/chat/`
 export const studentRoute = `${apiHost}/student`
 export const draftsRoute = `${apiHost}/user/drafts`
-
+export const profileRoute = `${apiHost}/user/upload`
 

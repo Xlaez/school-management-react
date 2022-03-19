@@ -18,11 +18,18 @@ function SideBar({
   handleDraftDisplay,
   handleArticleDisplay,
 }) {
+  const images = `http://localhost:8081/${studentData.image}`;
   const handleAnimation = () => {};
   return (
     <Wrapper>
       <div className="content-header">
-        <Avatar />
+        {studentData.image ? (
+          <div className="avatar">
+            <img src={images} alt="" />
+          </div>
+        ) : (
+          <Avatar />
+        )}
         <h3>{studentData.fullname}</h3>
       </div>
       <div className="content-list">
@@ -152,6 +159,13 @@ const Wrapper = styled.div`
     border-bottom: 1px solid #444;
     display: flex;
     align-items: center;
+    .avatar {
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+      }
+    }
     h3 {
       font-size: 14px;
       padding-left: 10px;

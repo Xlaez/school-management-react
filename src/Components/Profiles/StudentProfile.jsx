@@ -2,74 +2,80 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import React from "react";
 import styled from "styled-components";
+import SetProfile from "./SetProfile";
 function StudentProfile({ studentData }) {
+  const images = `http://localhost:8081/${studentData.image}`;
   return (
     <Container>
-      <div className="profile-display">
-        <div className="profile-img">
-          <BsFillPersonFill />
-        </div>
-        <div className="profile">
-          <h1>{studentData.fullname}, Your Data</h1>
+      {studentData.role !== undefined ? (
+        <div className="profile-display">
+          <div className="profile-img">
+            <img src={images} alt="Not showing" />
+          </div>
+          <div className="profile">
+            <h1>{studentData.fullname}, Your Data</h1>
 
-          <div className="profile-grid">
-            <div className="display-one">
-              <div>
-                {/* <button> */}
-                Name: <small>{studentData.fullname}</small>
-                {/* </button> */}
+            <div className="profile-grid">
+              <div className="display-one">
+                <div>
+                  {/* <button> */}
+                  Name: <small>{studentData.fullname}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  Phone: <small>{studentData.phone}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  Email: <small>{studentData.email}</small>
+                  {/* </button> */}
+                </div>
               </div>
-              <div>
-                {/* <button> */}
-                Phone: <small>{studentData.phone}</small>
-                {/* </button> */}
+              <div className="display-one">
+                <div>
+                  {/* <button> */}
+                  Class: <small>{studentData.classs}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  Age: <small>{studentData.age}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  Gender: <small>{studentData.gender}</small>
+                  {/* </button> */}
+                </div>
               </div>
-              <div>
-                {/* <button> */}
-                Email: <small>{studentData.email}</small>
-                {/* </button> */}
-              </div>
-            </div>
-            <div className="display-one">
-              <div>
-                {/* <button> */}
-                Class: <small>{studentData.class}</small>
-                {/* </button> */}
-              </div>
-              <div>
-                {/* <button> */}
-                ClassId: <small>{studentData.classId}</small>
-                {/* </button> */}
-              </div>
-              <div>
-                {/* <button> */}
-                SectionId: <small>{studentData.sectionId}</small>
-                {/* </button> */}
-              </div>
-            </div>
-            <div className="display-one">
-              <div>
-                {/* <button> */}
-                Role: <small>{studentData.role}</small>
-                {/* </button> */}
-              </div>
-              <div>
-                {/* <button> */}
-                TeachersId: <small>{studentData.teacherId}</small>
-                {/* </button> */}
-              </div>
-              <div>
-                {/* <button> */}
-                Suspended: <small>{studentData.suspended}</small>
-                {/* </button> */}
+              <div className="display-one">
+                <div>
+                  {/* <button> */}
+                  Role: <small>{studentData.role}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  Username: <small>{studentData.username}</small>
+                  {/* </button> */}
+                </div>
+                <div>
+                  {/* <button> */}
+                  TeacherId: <small>{studentData.teacherId}</small>
+                  {/* </button> */}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <div className="notice">
+          {/* <div className="notice">
           <small>Please upload a profile image</small>
         </div> */}
-      </div>
+        </div>
+      ) : (
+        <SetProfile studentData={studentData} />
+      )}
     </Container>
   );
 }
@@ -84,12 +90,11 @@ const Container = styled.div`
     .profile-img {
       padding-top: 2rem;
       text-align: center;
-      height: 10rem;
-      padding-bottom: 4rem;
-      svg {
-        height: 7rem;
-        width: 6rem;
-        padding-bottom: 1rem;
+      height: 5rem;
+      margin-bottom: 4rem;
+      img {
+        width: 100px;
+        border-radius: 50%;
       }
     }
     .profile {

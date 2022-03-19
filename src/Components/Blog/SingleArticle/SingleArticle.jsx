@@ -1,7 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import image from "../../../../public/assets/pics.jpg";
-function SingleArticle({ singleArticles, userId }) {
+import { blogRoute } from "../../../utils/api";
+function SingleArticle({ singleArticles, userId, id }) {
+  const Navigate = useNavigate();
+  const AccessToken = localStorage.getItem("x-access-token");
+  const userids = localStorage.getItem("app-user");
+  const images = `http://localhost:8081/${singleArticles.image}`;
+
+  const handleDelteArticle = (e) => {
+    e.preventDefault();
+    fetch(`${blogRoute}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: AccessToken,
+        userAccess: userids,
+      },
+    })
+      .then((res) => {
+        Navigate("/showcase");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Wrapper>
       <div className="single-blog-post">
@@ -9,7 +31,7 @@ function SingleArticle({ singleArticles, userId }) {
           <h1>{singleArticles.title}</h1>
         </div>
         <div className="img">
-          <img src={image} alt="" />
+          <img src={images} alt="" />
         </div>
         <div className="content">
           <h3>{singleArticles.description}</h3>
@@ -30,7 +52,7 @@ function SingleArticle({ singleArticles, userId }) {
         {singleArticles.userId === userId ? (
           <div className="links">
             <div>
-              <form>
+              <form onSubmit={(e) => handleDelteArticle(e)}>
                 <button type="submit" value={singleArticles._id}>
                   Delete
                 </button>
@@ -38,9 +60,7 @@ function SingleArticle({ singleArticles, userId }) {
             </div>
             <div>
               <form>
-                <button type="submit" value={singleArticles._id}>
-                  Edit
-                </button>
+                <button type="submit">Edit</button>
               </form>
             </div>
           </div>

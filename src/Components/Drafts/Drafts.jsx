@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BiServer } from "react-icons/bi";
 import styled from "styled-components";
 import { draftsRoute } from "../../utils/api";
+import ViewDrafts from "./ViewDrafts";
 function Drafts({ studentData }) {
   let [toggleDraft, setToggleDraft] = useState(undefined);
   const [draft, setDraft] = useState({
@@ -14,6 +15,9 @@ function Drafts({ studentData }) {
   const userId = localStorage.getItem("app-user");
   const toggleChangeDraft = () => {
     setToggleDraft("change");
+  };
+  const toggleViewDraft = () => {
+    setToggleDraft("view");
   };
   let message;
   useEffect(() => {
@@ -56,10 +60,9 @@ function Drafts({ studentData }) {
     };
     fetch(draftsRoute, requestOptions)
       .then((res) => {
-        res.json();
-      })
-      .then((data) => {
-        console.log(data);
+        res.json().then((res) => {
+          setToggleDraft("view");
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -68,61 +71,61 @@ function Drafts({ studentData }) {
   // console.log(text);
   return (
     <DraftWrapper>
-      {toggleDraft === "change" ? (
-        <div className="drafts">
-          <div className="recent-drafts">
-            <div className="recent-drafts-body">
-              <h4>Your Drafts Will Be Shown Hear</h4>
-              <ul>
-                {/* {text.map((t) => {
-                  return <li>{t.header}</li>;
-                })} */}
-              </ul>
-            </div>
-          </div>
-          <div className="add-drafts">
-            <h4>Tip: Create a draft title that will be easily remebered</h4>
-            <form className="darft-form" onSubmit={(e) => handleDraftSubmit(e)}>
-              <div className="elements">
-                <input
-                  type="text"
-                  name="header"
-                  placeholder="Draft Name"
-                  onChange={(e) => {
-                    handleTextChange(e);
-                  }}
-                />
-              </div>
-              <div className="elements">
-                <textarea
-                  name="content"
-                  cols="30"
-                  rows="10"
-                  onChange={(e) => {
-                    handleTextChange(e);
-                  }}
-                ></textarea>
-              </div>
-              <div className="button">
-                <button type="submit">Add to drafts</button>
-              </div>
-            </form>
-          </div>
-        </div>
+      {toggleDraft === "view" ? (
+        <ViewDrafts text={text} studentData={studentData} />
       ) : (
-        <div className="no-drafts">
-          <div>
-            <h3>Save your important Document {studentData.fullname}</h3>
-            <p>Your drafts are encrypted for security reasons</p>
-          </div>
-          <div className="btn">
-            <button onClick={() => toggleChangeDraft()}>
-              <div className="small">Add new draft</div>
-              <div className="icon">
-                <BiServer />
+        <div>
+          {toggleDraft === "change" ? (
+            <div className="drafts">
+              <form onSubmit={(e) => handleDraftSubmit(e)}>
+                <h3>Tip: Make your drafts descriptive enough</h3>
+                <div className="draft-element">
+                  <input
+                    type="text"
+                    name="header"
+                    placeholder="Draft title"
+                    onChange={(e) => {
+                      handleTextChange(e);
+                    }}
+                  />
+                </div>
+                <div className="draft-element">
+                  <textarea
+                    name="content"
+                    cols="30"
+                    rows="10"
+                    onChange={(e) => {
+                      handleTextChange(e);
+                    }}
+                  ></textarea>
+                </div>
+                <div className="draft-button">
+                  <button type="submit">Add to drafts</button>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <div className="no-drafts">
+              <div>
+                <h3>Save your important Document {studentData.fullname}</h3>
+                <p>Your drafts are encrypted for security reasons</p>
               </div>
-            </button>
-          </div>
+              <div className="btn">
+                <button onClick={() => toggleChangeDraft()}>
+                  <div className="small">Add</div>
+                  <div className="icon">
+                    <BiServer />
+                  </div>
+                </button>
+                <button onClick={() => toggleViewDraft()}>
+                  <div className="small">View </div>
+                  <div className="icon">
+                    <BiServer />
+                  </div>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </DraftWrapper>
@@ -133,7 +136,7 @@ const DraftWrapper = styled.div`
   padding: 1rem 2rem;
   font-family: "poppins", sans-serif;
   .no-drafts {
-    width: 500px;
+    width: 700px;
     margin: 0 auto;
     padding: 5rem 0.2rem;
     text-align: center;
@@ -149,12 +152,16 @@ const DraftWrapper = styled.div`
       padding-bottom: 4rem;
     }
     .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     button {
       padding: 20px 40px;
       color: #fff;
       background: #131324;
       border: 1px solid #131324;
+      margin: 0 1rem;
       border-radius: 5px;
       display: flex;
       justify-content: space-around;
@@ -174,72 +181,56 @@ const DraftWrapper = styled.div`
     }
   }
   .drafts {
-    display: grid;
-    margin-top: 4rem;
-    grid-template-columns: 45% 50%;
-    grid-gap: 3rem;
-    .recent-drafts {
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      background: #ccc;
-      &-body {
-        padding: 1rem;
-        h4 {
-          padding: 1rem;
-          text-align: center;
-        }
-        ul {
-          display: flex;
-          flex-direction: column;
-          li {
-            width: 100%;
-            list-style: none;
-            font-weight: 600;
-            padding: 5px;
-            border-bottom: 1px dashed #131324;
-          }
-        }
-      }
+    width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #131324;
+    color: #fff;
+    h3 {
+      text-align: center;
+      padding: 1rem;
     }
-    .add-drafts {
-      margin-top: 2rem;
-      .elements {
-        padding: 5px 10px;
-      }
-      h4 {
-        text-align: center;
-        padding: 1rem;
-      }
+    .draft-element {
+      padding: 1rem;
+      width: 100%;
       input {
         width: 100%;
-        padding-left: 10px;
-        border: 1px solid #00000076;
-        height: 30px;
-        color: #131324;
+        height: 40px;
+        background: transparent;
+        border: 1px solid #ccc;
+        color: #ccc;
         border-radius: 3px;
+        padding: 1px 5px;
         &:focus {
           outline: none;
         }
       }
       textarea {
         width: 100%;
-        color: #131324;
-        border: 1px solid #00000076;
         border-radius: 3px;
-        padding: 5px;
+        border: 1px solid #ccc;
+        color: #ccc;
+        background: transparent;
+        padding: 7px 5px;
         &:focus {
           outline: none;
         }
       }
-      .button {
-        padding: 1rem;
-        button {
-          width: 100%;
-          padding: 10px 40px;
-          border-radius: 3px;
-          border: #00000076;
-          color: #fff;
-          background: #131324;
+    }
+    .draft-button {
+      margin-top: 1rem;
+      padding: 1rem;
+      width: 100%;
+      button {
+        cursor: pointer;
+        width: 100%;
+        padding: 20px 40px;
+        color: #fff;
+        background: purple;
+        border: 1px solid #131324;
+        border-radius: 2px;
+        &:hover {
+          opacity: 0.8;
         }
       }
     }

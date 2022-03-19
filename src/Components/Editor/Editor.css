@@ -20,6 +20,18 @@
   background: lightgray;
   padding: 1rem;
   border: 1px solid #ccc;
+  max-height: 100px;
+  overflow: auto;
+}
+
+.editor-class::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.editor-class::-webkit-scrollbar-thumb {
+  width: 0.3rem;
+  border-radius: 0.3rem;
+  background: red;
 }
 
 .toolbar-class {
@@ -28,7 +40,19 @@
 }
 
 .preview {
-  padding: 3rem 1rem;
+  padding: 3rem 2rem;
   overflow-wrap: break-word;
+  overflow: auto;
+  max-height: 400px;
   /* color: #282c34; */
+}
+
+.preview::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.preview::-webkit-scrollbar-thumb {
+  width: 0.3rem;
+  border-radius: 0.3rem;
+  background: red;
 }

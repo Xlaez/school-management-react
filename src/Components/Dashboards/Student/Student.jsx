@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { studentRoute } from "../../../utils/api";
 import CreateArticle from "../../Blog/CreateArticle/CreateArticle";
+import CreateForm from "../../Blog/CreateArticle/CreateForm";
 import Drafts from "../../Drafts/Drafts";
 import StudentProfile from "../../Profiles/StudentProfile";
 import Header from "../Header/Header";
@@ -23,6 +24,9 @@ function Student() {
   const handleArticleDisplay = () => {
     setDisplay("article");
   };
+  // const switchToArticle = () =>{
+  //   setDisplay("")
+  // }
   useEffect(() => {
     axios
       .get(studentRoute, {
@@ -52,13 +56,20 @@ function Student() {
           handleProfileDisplay={handleProfileDisplay}
           handleDraftDisplay={handleDraftDisplay}
           handleArticleDisplay={handleArticleDisplay}
+          // switchToArticle={switchToArticle}
         />
         <div className="grid-child-two">
           <Header studentData={studentData} />
-          {display === "profile" ? (
-            <StudentProfile studentData={studentData} />
+          {display === "article" ? (
+            <CreateForm />
           ) : (
-            <Drafts studentData={studentData} />
+            <div>
+              {display === "profile" ? (
+                <StudentProfile studentData={studentData} />
+              ) : (
+                <Drafts studentData={studentData} />
+              )}
+            </div>
           )}
         </div>
       </div>
