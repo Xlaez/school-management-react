@@ -25,7 +25,7 @@ function SideBar({
       <div className="content-header">
         {studentData.image ? (
           <div className="avatar">
-            <img src={images} alt="" />
+            <Avatar src={images} />
           </div>
         ) : (
           <Avatar />
@@ -136,6 +136,48 @@ function SideBar({
               </div>
               <Link to="/">Assignments</Link>
             </li>
+            <li
+              onClick={() => {
+                handleAnimation();
+              }}
+            >
+              <div className="icon">
+                <BiChat />
+              </div>
+              <Link to="/">Assignments</Link>
+            </li>
+          </div>
+          <div className="list">
+            <li
+              onClick={() => {
+                handleArticleDisplay();
+              }}
+            >
+              <div className="icon">
+                <BsPen />
+              </div>
+              <Link to="#">Create Article</Link>
+            </li>
+            <li
+              onClick={() => {
+                handleAnimation();
+              }}
+            >
+              <div className="icon">
+                <BiChat />
+              </div>
+              <Link to="/">Assignments</Link>
+            </li>
+            <li
+              onClick={() => {
+                handleAnimation();
+              }}
+            >
+              <div className="icon">
+                <BiChat />
+              </div>
+              <Link to="/">Assignments</Link>
+            </li>
           </div>
         </ul>
         <div className="alert">
@@ -151,7 +193,7 @@ function SideBar({
 }
 
 const Wrapper = styled.div`
-  background: #131324;
+  background: #131313;
   color: #fff;
   height: 100vh;
   .content-header {
@@ -172,7 +214,19 @@ const Wrapper = styled.div`
     }
   }
   .content-list {
-    /* padding: 2rem 0.3rem; */
+    overflow-y: auto;
+    height: 85vh;
+    &::-webkit-scrollbar {
+      background: #333;
+      width: 0.6rem;
+      border-radius: 0.3rem;
+
+      &-thumb {
+        background: #e0e0e0;
+        border-radius: 0.3rem;
+        width: 0.6rem;
+      }
+    }
     ul {
       display: flex;
       flex-direction: column;
@@ -188,15 +242,15 @@ const Wrapper = styled.div`
         width: 100%;
         font-size: 15px;
         font-weight: 500;
-        background: #131324;
+        background: #131313;
         .icon {
           svg {
             font-size: 20px;
           }
         }
         &:hover {
-          background: #ffffff39;
-          border-radius: 5px;
+          background: rgb(228, 52, 52);
+          border-radius: 2px;
           cursor: pointer;
         }
 
@@ -216,8 +270,8 @@ const Wrapper = styled.div`
         width: 70%;
         list-style: none;
         color: #fff;
-        background: purple;
-        border: 1px solid #131324;
+        background: green;
+        border: 1px solid green;
         border-radius: 20px;
 
         :hover {

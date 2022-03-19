@@ -54,5 +54,5 @@
 .preview::-webkit-scrollbar-thumb {
   width: 0.3rem;
   border-radius: 0.3rem;
-  background: red;
+  background: rgb(228, 52, 52);
 }

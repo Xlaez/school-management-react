@@ -9,6 +9,7 @@ import Logo from "../../public/assets/facebook.png";
 
 function Signup() {
   const Navigate = useNavigate();
+  var [message, setMessage] = useState(undefined);
   const [inputs, setInputs] = useState({
     fullname: "",
     email: "",
@@ -49,29 +50,50 @@ function Signup() {
     }
   };
 
+  const checkValidity = (e) => {
+    let target = e.target.value;
+    (function valid() {
+      if (target.length <= 7) {
+        setMessage("false");
+        setTimeout(() => {
+          setMessage(undefined);
+        }, 1000);
+      }
+    })();
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
       const { fullname, email, password } = inputs;
-      const data = await axios.post(registerRoute, {
-        fullname,
-        email,
-        password,
-      });
-      console.log();
-      if (data.request.status === 400) {
-        toast.error(data.message, toastOptions);
+      try {
+        const data = await axios.post(registerRoute, {
+          fullname,
+          email,
+          password,
+        });
+        console.log();
+        if (data.request.status === 400) {
+          toast.error(data.data.message, toastOptions);
+        }
+        if (data.request.status === 201 || data.request.status === 200) {
+          var message = data.data.message;
+          var token = data.data.token;
+          var userId = data.data.userId;
+          toast.info(message, toastOptions);
+          localStorage.setItem("app-user", userId);
+          localStorage.setItem("x-access-token", token);
+          // localStorage.setItem("x-access-expiry",  );
+        }
+        Navigate("/");
+      } catch (err) {
+        (function alertm() {
+          setMessage("true");
+          setTimeout(() => {
+            setMessage(undefined);
+          }, 2000);
+        })();
       }
-      if (data.request.status === 201 || data.request.status === 200) {
-        var message = data.data.message;
-        var token = data.data.token;
-        var userId = data.data.userId;
-        toast.info(message, toastOptions);
-        localStorage.setItem("app-user", userId);
-        localStorage.setItem("x-access-token", token);
-        // localStorage.setItem("x-access-expiry",  );
-      }
-      Navigate("/");
     }
   };
 
@@ -82,6 +104,14 @@ function Signup() {
           <img src={Logo} alt="Logo" />
           <h1>TOF MANAGER</h1>
         </div>
+        {message === "true" && (
+          <small className="alert">This email is already taken</small>
+        )}
+        {message === "false" && (
+          <small className="alert">
+            Password cannot be less than 7 characers
+          </small>
+        )}
         <input
           type="text"
           name="fullname"
@@ -102,6 +132,7 @@ function Signup() {
           id=""
           placeholder="Password"
           onChange={(e) => handleChange(e)}
+          onMouseLeave={(e) => checkValidity(e)}
         />
         <button type="submit">Create account</button>
         <span>
@@ -117,7 +148,7 @@ function Signup() {
 export default Signup;
 
 const Container = styled.div`
-height: 100vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -139,50 +170,59 @@ height: 100vh;
       text-transform: uppercase;
     }
   }
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:2rem;
-      background:#00000076;
-      border-radius:2rem;
-      padding:2rem 5rem;
-      input{
-        background:transparent;
-        padding:1rem;
-        border:1px solid #4e0eff;
-        border-radius:0.4rem;
-        color:#ffffff;
-        width:100%;
-        font-size:1rem;
-        
-        &:focus{
-          border:1px solid #997af0;
-          outline:none;
-        }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: #00000076;
+    border-radius: 2rem;
+    padding: 2rem 5rem;
+    input {
+      background: transparent;
+      padding: 1rem;
+      border: 1px solid #4e0eff;
+      border-radius: 0.4rem;
+      color: #ffffff;
+      width: 100%;
+      font-size: 1rem;
+
+      &:focus {
+        border: 1px solid #997af0;
+        outline: none;
       }
-      button{
-        background:#997af0;
-        color:#fff;
-        padding:1rem 2rem;
-        border:none;
-        font-weight:bold;
-        cursor:pointer;
-        border-radius:0.4rem;
-        font-size:1rem;
-        text-transform:uppercase;
-        transition:0.5s ease-in;
-        &:hover{
-          background:#4e0eff;
-        }
+    }
+    button {
+      background: #997af0;
+      color: #fff;
+      padding: 1rem 2rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: 0.5s ease-in;
+      &:hover {
+        background: #4e0eff;
       }
-      span{
-        color:#ffffff;
-        text-transform:uppercase;
-        text-align:center;
-        a{
-          color:#4e0eff;
-          text-decoration:none;
-          font-weight:bolder;
-        }
+    }
+    span {
+      color: #ffffff;
+      text-transform: uppercase;
+      text-align: center;
+      a {
+        color: #4e0eff;
+        text-decoration: none;
+        font-weight: bolder;
       }
+    }
+  }
+  .alert {
+    color: #fff;
+    background: red;
+    border: 1px solid rgb(238, 97, 97);
+    border-radius: 1px;
+    padding: 10px;
+    text-align: center;
+  }
 `;

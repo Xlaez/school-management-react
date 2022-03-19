@@ -1,37 +1,52 @@
+/*eslint-disable*/
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BiPowerOff } from "react-icons/bi";
-import { BsHouse } from "react-icons/bs";
+import {
+  BsDashSquare,
+  BsFillInfoCircleFill,
+  BsHouse,
+  BsPersonCircle,
+} from "react-icons/bs";
+import Logout from "../../Auth/App/Logout";
 function Header() {
   return (
     <HeaderApp>
-      <div className="collection">
-        <div className="collection-items">
-          <div className="collections-portal"></div>
-          <div className="logout">
-            <ul>
-              <li>
-                <Link to="/">
-                  <div className="icons">
-                    <BsHouse />
-                  </div>
-                  <div className="text">Home </div>
-                </Link>
-              </li>
-              <li>
-                <Link to="/">
-                  <div className="icons">
-                    <BiPowerOff />
-                  </div>
-                  <div className="text">Logout</div>
-                </Link>
-              </li>
-            </ul>
+      <div className="dashboard-head">
+        <div className="display-name">
+          <div className="icon">
+            <BsFillInfoCircleFill />
           </div>
-          <div className="date">
-            <small>{new Date().toDateString()}</small>
+          <div className="text">
+            <span>Dashboard</span>
           </div>
+        </div>
+        <div className="display-icons">
+          <div className="icons">
+            <div className="icon">
+              <Link to="/showcase">
+                <BsHouse />
+              </Link>
+            </div>
+            <div></div>
+          </div>
+          <div className="icons">
+            <div className="icon">
+              <BsDashSquare />
+            </div>
+            <div></div>
+          </div>
+          <div className="icons">
+            <div className="icon">
+              <BsPersonCircle />
+            </div>
+            <div></div>
+          </div>
+          <div className="icon">
+            <Logout />
+          </div>
+          <div></div>
         </div>
       </div>
     </HeaderApp>
@@ -39,86 +54,52 @@ function Header() {
 }
 
 const HeaderApp = styled.div`
-  padding: 1.3rem;
-  border-bottom: 1px solid #444;
-  background: #131324;
-  color: #fff;
-  .collection {
+  .dashboard-head {
+    padding: 1rem 2rem 4rem 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    font-family: "Roboto", sans-serif !important;
-    .collection-items {
+    justify-content: space-between;
+    background: #131313;
+    color: #fff;
+
+    .display-name {
       display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .icon {
+        padding-right: 1.2rem;
+        svg {
+          cursor: pointer;
+          font-size: 1.2rem;
+          color: red;
+        }
+      }
+      span {
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+    .display-icons {
+      display: flex;
       justify-content: space-between;
       align-items: center;
-
-      .collections-portal {
-        padding: 0 2rem 0 4rem;
-        ul {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          li {
-            list-style: none;
-            padding: 3px 15px;
-            margin: 0 10px;
-            color: #fff;
-            a {
-              align-items: center;
-              font-size: 15px;
-              justify-content: space-around;
-              display: flex;
-              flex-direction: row;
-              color: #fff;
-              text-decoration: none;
-              transition: all 1s ease-in;
-
-              &:hover {
-                color: purple;
-              }
-            }
-          }
-        }
+      .icons {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
       }
-      .logout {
-        padding-right: 1rem;
-        margin-right: 2rem;
-        ul {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
+      .icon {
+        /* display: block; */
+        svg {
+          display: block;
+          font-size: 1.2rem;
         }
-        li {
-          padding: 3px 15px;
-          margin: 0 10px;
-          list-style: none;
-          a {
-            display: flex;
-            font-size: 15px;
-            justify-content: space-around;
-            flex-direction: row;
-            align-items: center;
-            color: #f4f4f4;
-            text-decoration: none;
-            transition: all 1s ease-in;
-
-            svg {
-              padding-right: 7px;
-              font-size: 24px;
-            }
-            &:hover {
-              color: #fff;
-            }
-          }
+        a {
+          text-decoration: none;
+          color: #fff;
         }
-      }
-      .date {
-        padding-right: 7px;
       }
     }
   }

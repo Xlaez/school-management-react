@@ -6,7 +6,7 @@ function MultipleBlog({ articles, handleSemiSubmit, setId, id }) {
   const handleNav = (e) => {
     setId(e.target.value);
   };
-
+  // Date.UTC()
   return (
     <Wrapper>
       <section>
@@ -34,11 +34,17 @@ function MultipleBlog({ articles, handleSemiSubmit, setId, id }) {
                   </div>
                   <div className="box">
                     <div className="avater">
-                      <Avatar src={""}></Avatar>
+                      <Avatar
+                        src={`http://localhost:8081/${article.image}`}
+                      ></Avatar>
                       <p>{article.author}</p>
                     </div>
                     <div className="date">
-                      <small>{new Date().toDateString()}</small>
+                      <small>
+                        {new Date(article.createdAt).toLocaleDateString(
+                          "en-US"
+                        )}
+                      </small>
                     </div>
                   </div>
                 </div>

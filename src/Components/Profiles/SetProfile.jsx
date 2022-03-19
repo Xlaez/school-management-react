@@ -41,8 +41,7 @@ function SetProfile({ studentData }) {
           console.log("An error occured");
         }
         if (res.ok) {
-          Navigate("/student");
-          console.log(res.ok);
+          Navigate("/showcase");
         }
       })
       .catch((err) => {
@@ -115,7 +114,7 @@ function SetProfile({ studentData }) {
 }
 
 const Profile = styled.div`
-  background: #131324;
+  background: steelblue;
   height: 80vh;
   margin: auto;
   padding: 1rem;
@@ -131,7 +130,7 @@ const Profile = styled.div`
     }
     p {
       padding: 1rem;
-      color: purple;
+      color: green;
       font-size: 15px;
       font-weight: 500;
     }
@@ -169,8 +168,8 @@ const Profile = styled.div`
     margin-left: 1rem;
     padding: 10px 40px;
     color: #fff;
-    background: purple;
-    border: 1px solid purple;
+    background: green;
+    border: 1px solid green;
     border-radius: 5px;
     cursor: pointer;
   }

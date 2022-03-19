@@ -3,6 +3,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import React from "react";
 import styled from "styled-components";
 import SetProfile from "./SetProfile";
+import { Avatar } from "@material-ui/core";
 function StudentProfile({ studentData }) {
   const images = `http://localhost:8081/${studentData.image}`;
   return (
@@ -10,7 +11,7 @@ function StudentProfile({ studentData }) {
       {studentData.role !== undefined ? (
         <div className="profile-display">
           <div className="profile-img">
-            <img src={images} alt="Not showing" />
+            <img src={images} alt="A person" />
           </div>
           <div className="profile">
             <h1>{studentData.fullname}, Your Data</h1>
@@ -82,26 +83,45 @@ function StudentProfile({ studentData }) {
 
 const Container = styled.div`
   padding: 1rem;
+  height: 78vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
   width: 100%;
   margin: 0 auto;
+  &::-webkit-scrollbar {
+    background: #333;
+    width: 0.5rem;
+    border-radius: 0.3rem;
+
+    &-thumb {
+      border-radius: 0.3rem;
+      width: 0.45rem;
+      background: #ccc;
+    }
+  }
   .profile-display {
     display: flex;
     flex-direction: column;
     .profile-img {
       padding-top: 2rem;
-      text-align: center;
-      height: 5rem;
-      margin-bottom: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
       img {
-        width: 100px;
+        width: 9rem;
+        height: 10rem;
         border-radius: 50%;
       }
     }
     .profile {
       margin: 1rem 2rem;
       padding: 2rem;
-      background: #131324;
-
+      background: rgb(10, 10, 141);
       h1 {
         font-size: 1.4rem;
         color: #fff;
@@ -114,7 +134,7 @@ const Container = styled.div`
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 10px;
       /* grid-column-gap: 7px; */
-      background: #131324;
+      background: rgb(10, 10, 141);
 
       .display-one {
         div {

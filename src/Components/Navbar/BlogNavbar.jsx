@@ -1,8 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function BlogNavbar() {
+  const Navigate = useNavigate();
+  const isAcess = localStorage.getItem("x-access-token");
+  const handleValidate = () => {
+    function validate() {
+      if (isAcess) {
+        Navigate("/student");
+      } else {
+        Navigate("/login");
+      }
+    }
+    validate();
+  };
   return (
     <Container>
       <nav>
@@ -14,9 +26,7 @@ function BlogNavbar() {
           </div>
           <div className="second-nav">
             <ul>
-              <li>
-                <Link to="/student">Dashboard</Link>
-              </li>
+              <li onClick={() => handleValidate()}>Dashboard</li>
               <li>
                 <Link to="/">Notice</Link>
               </li>
@@ -60,6 +70,7 @@ const Container = styled.div`
         padding: 10px 15px;
         margin: 0 10px;
         display: inline-block;
+        cursor: pointer;
         transition: all 3s ease-out;
         &:hover {
           background: #ffffff39;

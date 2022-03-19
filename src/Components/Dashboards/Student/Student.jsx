@@ -79,7 +79,8 @@ function Student() {
 
 const Dashboard = styled.div`
   font-family: "Open Sans", sans-serif;
-  background: #fff;
+  background: #131313;
+  padding: 0 1rem;
   width: 100vw;
   overflow-x: hidden;
   .grid {
